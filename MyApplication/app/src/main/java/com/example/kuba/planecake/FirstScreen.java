@@ -24,7 +24,6 @@ public class FirstScreen extends AppCompatActivity {
     }
 
     public void GoToCommand(View v) {
-        System.out.println("TEST");
         Intent intent = new Intent(this, OrderScreen.class);
         startActivity(intent);
     }

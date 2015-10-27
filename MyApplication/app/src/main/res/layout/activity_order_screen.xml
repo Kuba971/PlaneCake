@@ -49,17 +49,6 @@
         android:layout_below="@+id/linearLayout">
 
     </FrameLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Suivant"
-        android:onClick="next"
-        android:id="@+id/next"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/frameLayoutFragment"
-        android:layout_alignEnd="@+id/frameLayoutFragment" />
-
 
 </RelativeLayout>
 

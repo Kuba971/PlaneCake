@@ -3,11 +3,14 @@ package com.example.kuba.planecake;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 public class OrderScreen extends AppCompatActivity {
 
@@ -18,7 +21,12 @@ public class OrderScreen extends AppCompatActivity {
     private Button pancake;
     private Button drink;
     private Button send;
-    private Button next;
+    private String[] order;
+    private int checkID;
+    private CheckBox[] tabCheckBoxes;
+    private static int order_number;
+
+
 
 
     @Override
@@ -29,11 +37,10 @@ public class OrderScreen extends AppCompatActivity {
         pancake = (Button) findViewById(R.id.pancake);
         drink = (Button) findViewById(R.id.drink);
         send = (Button) findViewById(R.id.send);
-        next = (Button) findViewById(R.id.next);
         pancake.setEnabled(false);
         drink.setEnabled(false);
         send.setEnabled(false);
-        next.setEnabled(false);
+
 
         // Initialisation du gestionnaire de fragments
         fragmentManager = getFragmentManager();
@@ -44,7 +51,230 @@ public class OrderScreen extends AppCompatActivity {
 
     }
 
-    @Override
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkBox1:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+                break;
+            case R.id.checkBox2:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+                break;
+            case R.id.checkBox3:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+                break;
+            case R.id.checkBox4:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+            case R.id.checkBox5:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+                break;
+            case R.id.checkBox6:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+                break;
+            case R.id.checkBox7:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+                break;
+            case R.id.checkBox8:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox9)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+                break;
+            case R.id.checkBox9:
+                if (checked) {
+                    ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox5)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox6)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox7)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox8)).setEnabled(false);
+                    ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
+                    pancake.setEnabled(true);
+                }
+                else{
+                    for (int i=1; i < 10; i++){
+                        String checkBoxesID = "checkBox" + i ;
+                        checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+                        System.out.println(checkID + "     AAAAAAAAAAAAAAAAAAAAAAAa");
+                        if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                            ((CheckBox) findViewById(checkID)).setEnabled(true);
+                        }
+                    }
+                    pancake.setEnabled(false);
+                }
+
+                break;
+        }
+    }
+
+
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_order_screen, menu);
