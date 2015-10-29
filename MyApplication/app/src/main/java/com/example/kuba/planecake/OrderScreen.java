@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 
 public class OrderScreen extends AppCompatActivity {
@@ -24,9 +25,7 @@ public class OrderScreen extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private OrderScreenFragment fragTable;
 
-    private PrintWriter writer = new PrintWriter(System.out, true);
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private ReadMessages readMessages;
+
 
     private Button table;
     private Button pancake;
@@ -35,6 +34,10 @@ public class OrderScreen extends AppCompatActivity {
     private String[] order;
     private int checkID;
     private static int order_number;
+
+    private PrintWriter writer = new PrintWriter(System.out, true);
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private ReadMessages readMessages;
 
     private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
         @Override
@@ -46,10 +49,11 @@ public class OrderScreen extends AppCompatActivity {
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
             try {
-                Socket socket = new Socket("localhost", 7777);
+                Socket socket = new Socket("10.0.2.2",7777);
+                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 writer = new PrintWriter(socket.getOutputStream(), true);
                 writer.println("QUANTITE");
-                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
                 return true;
             } catch (IOException e) {
                 return false;
@@ -75,6 +79,7 @@ public class OrderScreen extends AppCompatActivity {
             while (!isCancelled()) {
                 try {
                     String message = reader.readLine();
+                    System.out.println("DISPALYYYYYYYYY2 ::::: " + message);
                     publishProgress(message);
                 } catch (IOException e) {
                     break;
@@ -90,8 +95,8 @@ public class OrderScreen extends AppCompatActivity {
     }
 
     private void displayMessage(String message) {
-       
 
+    System.out.println("DISPALYYYYYYYYY1 ::::: " + message);
     }
 
     protected void onStart() {
@@ -132,6 +137,7 @@ public class OrderScreen extends AppCompatActivity {
         transaction.add(R.id.frameLayoutFragment2, fragPancake, "Frag_Pancake");
         fragTable.getView().setVisibility(View.INVISIBLE);
         transaction.commit();
+        writer.println("QUANTITE");
     }
 
         @Override
@@ -206,9 +212,31 @@ public class OrderScreen extends AppCompatActivity {
         }
     }
 
-    //public void pancakeOrder(View v) {
-        //fragTable.getView().setVisibility(View.INVISIBLE);
-       // fragPancake.getView().setVisibility(View.VISIBLE);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("ChatActivity.onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("ChatActivity.onRestart");
+    }
+
+
+    @Override
+    protected void onStop() {
+        System.out.println("ChatActivity.onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        System.out.println("ChatActivity.onDestroy");
+        super.onDestroy();
+    }
+
 
     //}
 
