@@ -46,7 +46,7 @@ public class OrderScreen extends AppCompatActivity {
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
             try {
-                Socket socket = new Socket("localhost", 7777);
+                Socket socket = new Socket("10.0.2.2", 7777);
                 writer = new PrintWriter(socket.getOutputStream(), true);
                 writer.println("QUANTITE");
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
