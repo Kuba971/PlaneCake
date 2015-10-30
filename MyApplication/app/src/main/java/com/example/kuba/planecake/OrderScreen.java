@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class OrderScreen extends AppCompatActivity {
 
@@ -34,10 +35,12 @@ public class OrderScreen extends AppCompatActivity {
     private String[] order;
     private int checkID;
     private static int order_number;
+    private ArrayList<String> listPancake = new ArrayList<String>();
 
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private ReadMessages readMessages;
+    public final static String QUANTITY = "QUANTITE";
 
     private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
         @Override
@@ -48,12 +51,12 @@ public class OrderScreen extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
+            String name = "10.0.2.2";
+            int port = 7777;
             try {
-                Socket socket = new Socket("10.0.2.2",7777);
-                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                writer = new PrintWriter(socket.getOutputStream(), true);
-                writer.println("QUANTITE");
-
+                Socket mySocket = new Socket(name, port);
+                writer = new PrintWriter(mySocket.getOutputStream(), true);
+                reader = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                 return true;
             } catch (IOException e) {
                 return false;
@@ -79,6 +82,8 @@ public class OrderScreen extends AppCompatActivity {
             while (!isCancelled()) {
                 try {
                     String message = reader.readLine();
+                        listPancake.add(message);
+
                     System.out.println("DISPALYYYYYYYYY2 ::::: " + message);
                     publishProgress(message);
                 } catch (IOException e) {
@@ -94,9 +99,9 @@ public class OrderScreen extends AppCompatActivity {
         }
     }
 
-    private void displayMessage(String message) {
+    private String displayMessage(String message) {
 
-    System.out.println("DISPALYYYYYYYYY1 ::::: " + message);
+        return message;
     }
 
     protected void onStart() {
@@ -238,7 +243,6 @@ public class OrderScreen extends AppCompatActivity {
     }
 
 
-    //}
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?

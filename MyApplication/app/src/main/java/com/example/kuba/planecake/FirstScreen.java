@@ -23,8 +23,13 @@ public class FirstScreen extends AppCompatActivity {
         return true;
     }
 
-    public void GoToCommand(View v) {
+    public void goToCommand(View v) {
         Intent intent = new Intent(this, OrderScreen.class);
+        startActivity(intent);
+    }
+
+    public void goToReplenishment(View v) {
+        Intent intent = new Intent(this, ReplenishmentScreen.class);
         startActivity(intent);
     }
 
