@@ -18,6 +18,7 @@ public class OrderScreenFragment extends Fragment {
     private Button next;
     private CheckBox checkBox7;
     private CheckBox checkBox1;
+    private CheckBox checkBox6;
 
     public OrderScreenFragment() {
     }
@@ -28,8 +29,13 @@ public class OrderScreenFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_order, container, false);
         checkBox7 = (CheckBox) v.findViewById(R.id.checkBox7);
         checkBox1 = (CheckBox) v.findViewById(R.id.checkBox1);
+        checkBox6 = (CheckBox) v.findViewById(R.id.checkBox6);
         checkBox7.setTextColor(Color.RED);
         checkBox7.setEnabled(false);
+        checkBox1.setTextColor(Color.RED);
+        checkBox1.setEnabled(false);
+        checkBox6.setTextColor(Color.RED);
+        checkBox6.setEnabled(false);
 
        return v;
 

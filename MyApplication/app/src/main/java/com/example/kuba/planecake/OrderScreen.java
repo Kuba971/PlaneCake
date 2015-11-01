@@ -35,7 +35,7 @@ public class OrderScreen extends AppCompatActivity {
     private String[] order;
     private int checkID;
     private static int order_number;
-    private ArrayList<String> listPancake = new ArrayList<String>();
+    public ArrayList<String> listPancake = new ArrayList<String>();
 
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -83,7 +83,6 @@ public class OrderScreen extends AppCompatActivity {
                 try {
                     String message = reader.readLine();
                         listPancake.add(message);
-
                     System.out.println("DISPALYYYYYYYYY2 ::::: " + message);
                     publishProgress(message);
                 } catch (IOException e) {
@@ -137,12 +136,13 @@ public class OrderScreen extends AppCompatActivity {
     }
 
     public void pancakeOrder(View v){
+        writer.println("QUANTITE");
         PancakeFragment fragPancake = new PancakeFragment();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.frameLayoutFragment2, fragPancake, "Frag_Pancake");
         fragTable.getView().setVisibility(View.INVISIBLE);
         transaction.commit();
-        writer.println("QUANTITE");
+
     }
 
         @Override
@@ -251,6 +251,7 @@ public class OrderScreen extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkBox1:
                 if (checked) {
+
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
