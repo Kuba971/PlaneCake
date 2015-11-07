@@ -12,35 +12,40 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderScreen extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private OrderScreenFragment fragTable;
-
+    private PancakeFragment fragPancake;
+    private DrinkFragment fragDrink;
 
 
     private Button table;
     private Button pancake;
     private Button drink;
     private Button send;
-    private String[] order;
     private int checkID;
-    private static int order_number;
+    private static int order_number = 0;
+    public ArrayList<String> order = new ArrayList<String>();
     public ArrayList<String> listPancake = new ArrayList<String>();
 
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private ReadMessages readMessages;
     public final static String QUANTITY = "QUANTITE";
+
 
     private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
         @Override
@@ -106,7 +111,7 @@ public class OrderScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         new StartNetwork().execute();
-    }
+        }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,22 +131,45 @@ public class OrderScreen extends AppCompatActivity {
         // On initialise les fragments, soit en récupérant ceux qui existent déjà, soit en les
         // créant sinon
         fragTable = initFragment(R.id.frameLayoutFragment);
-       // fragPancake = initFragment(R.id.frameLayoutFragment2);
+    }
 
+    public void PancakeButtonPlus(View v) {
+        switch(v.getId()) {
+            case R.id.PancakeButtonPlus1:
 
+                break;
+        }
     }
 
     public void assignTable(View v){
-        fragTable.getView().setVisibility(View.VISIBLE);
+        FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
+        framePancake.setVisibility(View.INVISIBLE);
+        FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
+        frameOrder.setVisibility(View.VISIBLE);
+        FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
+        frameDrink.setVisibility(View.INVISIBLE);
     }
 
     public void pancakeOrder(View v){
         writer.println("QUANTITE");
-        PancakeFragment fragPancake = new PancakeFragment();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.frameLayoutFragment2, fragPancake, "Frag_Pancake");
-        fragTable.getView().setVisibility(View.INVISIBLE);
-        transaction.commit();
+        fragPancake = initFragmentPancake(R.id.frameLayoutFragment2);
+        FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
+        frameOrder.setVisibility(View.INVISIBLE);
+        FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
+        framePancake.setVisibility(View.VISIBLE);
+        FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
+        frameDrink.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void drinkOrder(View v){
+        fragDrink = initFragmentDrink(R.id.frameLayoutFragment3);
+        FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
+        frameOrder.setVisibility(View.INVISIBLE);
+        FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
+        framePancake.setVisibility(View.INVISIBLE);
+        FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
+        frameDrink.setVisibility(View.VISIBLE);
 
     }
 
@@ -183,6 +211,36 @@ public class OrderScreen extends AppCompatActivity {
         // S'il n'existe pas, on le crée et on l'attache
         if (fragment == null) {
             fragment = new OrderScreenFragment();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(id, fragment);
+            transaction.commit();
+        }
+
+        return fragment;
+    }
+
+    private PancakeFragment initFragmentPancake(int id) {
+        // On récupère le fragment, ou null s'il n'existe pas encore
+        PancakeFragment fragment = (PancakeFragment) fragmentManager.findFragmentById(id);
+
+        // S'il n'existe pas, on le crée et on l'attache
+        if (fragment == null) {
+            fragment = new PancakeFragment();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(id, fragment);
+            transaction.commit();
+        }
+
+        return fragment;
+    }
+
+    private DrinkFragment initFragmentDrink(int id) {
+        // On récupère le fragment, ou null s'il n'existe pas encore
+        DrinkFragment fragment = (DrinkFragment) fragmentManager.findFragmentById(id);
+
+        // S'il n'existe pas, on le crée et on l'attache
+        if (fragment == null) {
+            fragment = new DrinkFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.add(id, fragment);
             transaction.commit();
@@ -245,13 +303,16 @@ public class OrderScreen extends AppCompatActivity {
 
 
     public void onCheckboxClicked(View view) {
+        order_number++;
+
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
         // Check which checkbox was clicked
         switch(view.getId()) {
+
             case R.id.checkBox1:
                 if (checked) {
-
+                    order.add(findViewById(R.id.checkBox1).toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -275,6 +336,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox2:
                 if (checked) {
+                    order.add(findViewById(R.id.checkBox1).toString());
                     ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);

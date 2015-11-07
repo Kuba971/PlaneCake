@@ -1,11 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="15dp"
+    android:id="@+id/pancakeChooseView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
     android:orientation="vertical"
-    tools:context="com.example.kuba.planecake.PancakeFragment"
-    android:id="@+id/pancakeChooseView">
+    android:weightSum="1"
+    tools:context="com.example.kuba.planecake.PancakeFragment">
 
 
     <TextView
@@ -17,268 +18,307 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
         android:id="@+id/LayoutPancake1"
-        android:layout_width="wrap_content"
+        android:layout_width="358dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="left">
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.16"
+        android:weightSum="1">
 
-        <TextView
-            android:id="@+id/PancakeView1"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/PancakeButtonPlus1"
-            android:onClick="PancakeButtonPlus1"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="+" />
+            <TextView
+                android:id="@+id/PancakeView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/PancakeQuantityNumber1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:layout_gravity="bottom"
+            android:gravity="right">
 
-        <Button
-            android:id="@+id/PancakeButtonMinus1"
-            android:onClick="PancakeButtonMinus1"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="-" />
-        <TextView
-            android:id="@+id/PancakeViewStock1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Stock : " />
-        <TextView
-            android:id="@+id/PancakeStock1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Button
+                android:id="@+id/PancakeButtonPlus1"
+                android:layout_width="43dp"
+                android:layout_height="wrap_content"
+                android:onClick="PancakeButtonPlus"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/PancakeQuantityNumber1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+            <Button
+                android:id="@+id/PancakeButtonMinus1"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:onClick="PancakeButtonMinus"
+                android:text="-"/>
+
+            <TextView
+                android:id="@+id/PancakeViewStock1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stock : "/>
+
+            <TextView
+                android:id="@+id/PancakeStock1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
         android:id="@+id/LayoutPancake2"
-        android:layout_width="wrap_content"
+        android:layout_width="358dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="left">
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.12">
 
-        <TextView
-            android:id="@+id/PancakeView2"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/PancakeButtonPlus2"
-            android:onClick="PancakeButtonPlus2"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="+" />
+            <TextView
+                android:id="@+id/PancakeView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text=""/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/PancakeQuantityNumber2"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:layout_gravity="bottom"
+            android:gravity="right">
 
-        <Button
-            android:id="@+id/PancakeButtonMinus2"
-            android:onClick="PancakeButtonMinus2"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="-" />
-        <TextView
-            android:id="@+id/PancakeViewStock2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Stock : " />
-        <TextView
-            android:id="@+id/PancakeStock2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Button
+                android:id="@+id/PancakeButtonPlus2"
+                android:layout_width="43dp"
+                android:layout_height="wrap_content"
+                android:onClick="PancakeButtonPlus2"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/PancakeQuantityNumber2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+            <Button
+                android:id="@+id/PancakeButtonMinus2"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:onClick="PancakeButtonMinus2"
+                android:text="-"/>
+
+            <TextView
+                android:id="@+id/PancakeViewStock2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stock : "/>
+
+            <TextView
+                android:id="@+id/PancakeStock2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/LayoutPancake3"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:id="@+id/LayoutPancake3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left">
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/PancakeView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:text=""/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
         <Button
             android:id="@+id/PancakeButtonPlus3"
-            android:onClick="PancakeButtonPlus3"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="+" />
+            android:onClick="PancakeButtonPlus3"
+            android:text="+"/>
 
         <TextView
             android:id="@+id/PancakeQuantityNumber3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="0"/>
 
         <Button
             android:id="@+id/PancakeButtonMinus3"
-            android:onClick="PancakeButtonMinus3"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="-" />
+            android:onClick="PancakeButtonMinus3"
+            android:text="-"/>
+
         <TextView
             android:id="@+id/PancakeViewStock3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Stock : " />
+            android:text="Stock : "/>
+
         <TextView
             android:id="@+id/PancakeStock3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="0"/>
     </LinearLayout>
+</LinearLayout>
 
     <LinearLayout
+        android:id="@+id/LayoutPancake4"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:id="@+id/LayoutPancake4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left">
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/PancakeView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="right">
         <Button
             android:id="@+id/PancakeButtonPlus4"
-            android:onClick="PancakeButtonPlus4"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="+" />
+            android:onClick="PancakeButtonPlus4"
+            android:text="+"/>
 
         <TextView
             android:id="@+id/PancakeQuantityNumber4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="0"/>
+
 
         <Button
             android:id="@+id/PancakeButtonMinus4"
-            android:onClick="PancakeButtonMinus4"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="-" />
+            android:onClick="PancakeButtonMinus4"
+            android:text="-"/>
+
         <TextView
             android:id="@+id/PancakeViewStock4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Stock : " />
+            android:text="Stock : "/>
+
         <TextView
             android:id="@+id/PancakeStock4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="0"/>
     </LinearLayout>
-
+</LinearLayout>
     <LinearLayout
+        android:id="@+id/LayoutPancake5"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:id="@+id/LayoutPancake5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left">
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/PancakeView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:text=""/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
         <Button
             android:id="@+id/PancakeButtonPlus5"
-            android:onClick="PancakeButtonPlus5"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="+" />
+            android:onClick="PancakeButtonPlus5"
+            android:text="+"/>
 
         <TextView
             android:id="@+id/PancakeQuantityNumber5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="0" />
 
         <Button
             android:id="@+id/PancakeButtonMinus5"
-            android:onClick="PancakeButtonMinus5"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="-" />
+            android:onClick="PancakeButtonMinus5"
+            android:text="-"/>
+
         <TextView
             android:id="@+id/PancakeViewStock5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Stock : " />
+            android:text="Stock : "/>
+
         <TextView
             android:id="@+id/PancakeStock5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="0"/>
     </LinearLayout>
-
+</LinearLayout>
 </LinearLayout>
