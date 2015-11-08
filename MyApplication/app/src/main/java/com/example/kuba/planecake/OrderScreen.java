@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,16 +15,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class OrderScreen extends AppCompatActivity {
 
@@ -47,6 +53,7 @@ public class OrderScreen extends AppCompatActivity {
     public final static String QUANTITY = "QUANTITE";
 
 
+
     private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -56,7 +63,7 @@ public class OrderScreen extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
-            String name = "10.0.2.2";
+            String name = "192.168.0.11";
             int port = 7777;
             try {
                 Socket mySocket = new Socket(name, port);
@@ -124,7 +131,6 @@ public class OrderScreen extends AppCompatActivity {
         drink.setEnabled(false);
         send.setEnabled(false);
 
-
         // Initialisation du gestionnaire de fragments
         fragmentManager = getFragmentManager();
 
@@ -133,13 +139,218 @@ public class OrderScreen extends AppCompatActivity {
         fragTable = initFragment(R.id.frameLayoutFragment);
     }
 
-    public void PancakeButtonPlus(View v) {
+
+    public void PancakeButtonMinus(View v) {
         switch(v.getId()) {
-            case R.id.PancakeButtonPlus1:
+            case R.id.PancakeButtonMinus1:
+                TextView stockView1 = (TextView) findViewById(R.id.PancakeStock1);
+                int stock1 = Integer.parseInt(stockView1.getText().toString());
+                TextView quantityView1 = (TextView) findViewById(R.id.PancakeQuantityNumber1);
+                int quantity1 = Integer.parseInt(quantityView1.getText().toString());
+                if (quantity1 > 0) {
+                    quantity1--;
+                    quantityView1.setText(quantity1+ "");
+                    stock1++;
+                    stockView1.setText(stock1 + "");
+                    stockView1.setTextColor(Color.GRAY);
+                }
+                else
+                {
+                    quantityView1.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.PancakeButtonMinus2:
+                TextView stockView2 = (TextView) findViewById(R.id.PancakeStock2);
+                int stock2 = Integer.parseInt(stockView2.getText().toString());
+                TextView quantityView2 = (TextView) findViewById(R.id.PancakeQuantityNumber2);
+                int quantity2 = Integer.parseInt(quantityView2.getText().toString());
+                if (quantity2 > 0) {
+                    quantity2--;
+                    quantityView2.setText(quantity2+ "");
+                    stock2++;
+                    stockView2.setText(stock2 + "");
+                    stockView2.setTextColor(Color.GRAY);
+                }
+                else
+                {
+                    quantityView2.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.PancakeButtonMinus3:
+                TextView stockView3 = (TextView) findViewById(R.id.PancakeStock3);
+                int stock3 = Integer.parseInt(stockView3.getText().toString());
+                TextView quantityView3 = (TextView) findViewById(R.id.PancakeQuantityNumber3);
+                int quantity3 = Integer.parseInt(quantityView3.getText().toString());
+                if (quantity3 > 0) {
+                    quantity3--;
+                    quantityView3.setText(quantity3+ "");
+                    stock3++;
+                    stockView3.setText(stock3 + "");
+                    stockView3.setTextColor(Color.GRAY);
+                }
+                else
+                {
+                    quantityView3.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.PancakeButtonMinus4:
+                TextView stockView4 = (TextView) findViewById(R.id.PancakeStock4);
+                int stock4 = Integer.parseInt(stockView4.getText().toString());
+                TextView quantityView4 = (TextView) findViewById(R.id.PancakeQuantityNumber4);
+                int quantity4 = Integer.parseInt(quantityView4.getText().toString());
+                if (quantity4 > 0) {
+                    quantity4--;
+                    quantityView4.setText(quantity4+ "");
+                    stock4++;
+                    stockView4.setText(stock4 + "");
+                    stockView4.setTextColor(Color.GRAY);
+                }
+                else
+                {
+                    quantityView4.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.PancakeButtonMinus5:
+                TextView stockView5 = (TextView) findViewById(R.id.PancakeStock5);
+                int stock5 = Integer.parseInt(stockView5.getText().toString());
+                TextView quantityView5 = (TextView) findViewById(R.id.PancakeQuantityNumber5);
+                int quantity5 = Integer.parseInt(quantityView5.getText().toString());
+                if (quantity5 > 0) {
+                    quantity5--;
+                    quantityView5.setText(quantity5+ "");
+                    stock5++;
+                    stockView5.setText(stock5 + "");
+                    stockView5.setTextColor(Color.GRAY);
+                }
+                else
+                {
+                    quantityView5.setTextColor(Color.RED);
+                }
 
                 break;
         }
     }
+
+    public void PancakeButtonPlus(View v) {
+        switch(v.getId()) {
+            case R.id.PancakeButtonPlus1:
+                TextView stockView1 = (TextView) findViewById(R.id.PancakeStock1);
+                int stock1 = Integer.parseInt(stockView1.getText().toString());
+                TextView quantityView1 = (TextView) findViewById(R.id.PancakeQuantityNumber1);
+                int quantity1 = Integer.parseInt(quantityView1.getText().toString());
+                if (stock1 >= 1) {
+                    quantity1++;
+                    quantityView1.setText(quantity1+ "");
+                    stock1--;
+                    stockView1.setText(stock1 + "");
+                    quantityView1.setTextColor(Color.GRAY);
+
+                }
+                else
+                {
+                    stockView1.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.PancakeButtonPlus2:
+                TextView stockView2 = (TextView) findViewById(R.id.PancakeStock2);
+                int stock2 = Integer.parseInt(stockView2.getText().toString());
+                TextView quantityView2 = (TextView) findViewById(R.id.PancakeQuantityNumber2);
+                int quantity2 = Integer.parseInt(quantityView2.getText().toString());
+                if (stock2 >= 1) {
+                    quantity2++;
+                    quantityView2.setText(quantity2+ "");
+                    stock2--;
+                    stockView2.setText(stock2 + "");
+                    quantityView2.setTextColor(Color.GRAY);
+
+                }
+                else
+                {
+                    stockView2.setTextColor(Color.RED);
+
+                }
+
+                break;
+            case R.id.PancakeButtonPlus3:
+                TextView stockView3 = (TextView) findViewById(R.id.PancakeStock3);
+                int stock3 = Integer.parseInt(stockView3.getText().toString());
+                TextView quantityView3 = (TextView) findViewById(R.id.PancakeQuantityNumber3);
+                int quantity3 = Integer.parseInt(quantityView3.getText().toString());
+                if (stock3 >= 1) {
+                    quantity3++;
+                    quantityView3.setText(quantity3+ "");
+                    stock3--;
+                    stockView3.setText(stock3 + "");
+                    quantityView3.setTextColor(Color.GRAY);
+
+                }
+                else
+                {
+                    stockView3.setTextColor(Color.RED);
+
+                }
+
+                break;
+            case R.id.PancakeButtonPlus4:
+                TextView stockView4 = (TextView) findViewById(R.id.PancakeStock4);
+                int stock4 = Integer.parseInt(stockView4.getText().toString());
+                TextView quantityView4 = (TextView) findViewById(R.id.PancakeQuantityNumber4);
+                int quantity4 = Integer.parseInt(quantityView4.getText().toString());
+                if (stock4 >= 1) {
+                    quantity4++;
+                    quantityView4.setText(quantity4+ "");
+                    stock4--;
+                    stockView4.setText(stock4 + "");
+                    quantityView4.setTextColor(Color.GRAY);
+
+                }
+                else
+                {
+                    stockView4.setTextColor(Color.RED);
+
+                }
+
+                break;
+            case R.id.PancakeButtonPlus5:
+                TextView stockView5 = (TextView) findViewById(R.id.PancakeStock5);
+                int stock5 = Integer.parseInt(stockView5.getText().toString());
+                TextView quantityView5 = (TextView) findViewById(R.id.PancakeQuantityNumber5);
+                int quantity5 = Integer.parseInt(quantityView5.getText().toString());
+                if (stock5>= 1) {
+                    quantity5++;
+                    quantityView5.setText(quantity5+ "");
+                    stock5--;
+                    stockView5.setText(stock5 + "");
+                    quantityView5.setTextColor(Color.GRAY);
+
+                }
+                else
+                {
+                    stockView5.setTextColor(Color.RED);
+
+                }
+
+                break;
+        }
+    }
+
+    Handler h = new Handler();
+    Runnable runnable = new Runnable() {
+        public void run() {
+            RefreshQuantity();
+        }
+    };
+
+        public void RefreshQuantity()
+        {
+            writer.println("QUANTITE");
+            h.postDelayed(runnable, 5000);
+        }
 
     public void assignTable(View v){
         FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
@@ -306,13 +517,13 @@ public class OrderScreen extends AppCompatActivity {
         order_number++;
 
         // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
+        boolean checked = ((CheckBox) view) .isChecked();
+        order.add(((CheckBox) view).getText().toString());
         // Check which checkbox was clicked
         switch(view.getId()) {
 
             case R.id.checkBox1:
                 if (checked) {
-                    order.add(findViewById(R.id.checkBox1).toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -336,7 +547,6 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox2:
                 if (checked) {
-                    order.add(findViewById(R.id.checkBox1).toString());
                     ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
