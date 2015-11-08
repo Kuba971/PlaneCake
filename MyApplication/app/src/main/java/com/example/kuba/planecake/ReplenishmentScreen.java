@@ -4,6 +4,7 @@ package com.example.kuba.planecake;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,15 +30,19 @@ public class ReplenishmentScreen extends AppCompatActivity {
         setContentView(R.layout.activity_replenishment_screen);
         context = getApplicationContext();
         fragmentManager = getFragmentManager();
-
         fragStock = (StockFragment) fragmentManager.findFragmentById(R.id.frameLayoutFragment);
 
-        if (fragStock == null) {
-            fragStock = new StockFragment();
+        createAndAddStockFragment(fragStock);
+    }
+
+    private void createAndAddStockFragment(StockFragment frag) {
+
+        if (frag == null) {
+            frag = new StockFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.frameLayoutFragment, fragStock);
+            transaction.add(R.id.frameLayoutFragment, frag);
             transaction.commit();
-        }//TODO find out how to reload fragment
+        }
     }
 
     @Override
@@ -63,11 +68,25 @@ public class ReplenishmentScreen extends AppCompatActivity {
     }
 
     public void addPancake(View v){
-        pancakeAddFrag = new PancakeAddingFrag();
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.frameLayoutFragment, pancakeAddFrag, "Frag_Pancake");
-        fragStock.getView().setVisibility(View.INVISIBLE);
+
+        if (fragStock != null) {
+            fragStock.onDestroy();
+        }
+
+        if(pancakeAddFrag==null) {
+            pancakeAddFrag = new PancakeAddingFrag();
+            transaction.replace(R.id.frameLayoutFragment, pancakeAddFrag, "Frag_Pancake");
+            fragStock = null;
+        }else{
+            transaction.remove(pancakeAddFrag);
+            pancakeAddFrag.onDetach();
+            pancakeAddFrag = null;
+            restartActivity(this);
+        }
         transaction.commit();
+
     }
 
 
@@ -79,4 +98,13 @@ public class ReplenishmentScreen extends AppCompatActivity {
         Toast toast = Toast.makeText(context, "Soon Available", Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    public static void restartActivity(ReplenishmentScreen act){
+
+        Intent intent=new Intent();
+        intent.setClass(act, act.getClass());
+        act.finish();
+        act.startActivity(intent);
+    }
+
 }

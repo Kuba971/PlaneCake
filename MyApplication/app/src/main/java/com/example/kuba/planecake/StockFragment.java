@@ -26,13 +26,13 @@ public class StockFragment extends Fragment {
     private TextView display;
     private ScrollView scroll;
 
-
     public final static String END = "FINLISTE";
     public final static String QUANTITY = "QUANTITE";
 
 
     ReadMessages readMessages = new ReadMessages();
-
+    StartNetwork network = new StartNetwork();
+    Socket mySocket;
 
     public StockFragment() {
     }
@@ -45,7 +45,7 @@ public class StockFragment extends Fragment {
             String name = "10.0.2.2";
             int port = 7777;
             try {
-                Socket mySocket = new Socket(name, port);
+                mySocket = new Socket(name, port);
                 writer = new PrintWriter(mySocket.getOutputStream(), true);
                 reader = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                 writer.println(QUANTITY);
@@ -83,18 +83,18 @@ public class StockFragment extends Fragment {
             }while (message != END);
             return null;
         }
-
         @Override
         protected void onProgressUpdate(String... messages) {
             displayMessage(messages[0] + "\n");
         }
+
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new StartNetwork().execute();
+        network.execute();
         readMessages.execute();
     }
 
@@ -106,5 +106,24 @@ public class StockFragment extends Fragment {
         return v;
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+        readMessages.cancel(true);
+        display.setText(" ");
+        network.cancel(true);
+        if(!mySocket.isClosed()){
+            try {
+                mySocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//    public void onResume(){
+//        super.onResume();
+//        network.execute();
+//        readMessages.execute();
+//    }
 
 }
