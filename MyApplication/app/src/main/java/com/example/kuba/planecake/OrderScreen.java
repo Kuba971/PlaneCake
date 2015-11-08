@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -36,6 +38,7 @@ public class OrderScreen extends AppCompatActivity {
     private OrderScreenFragment fragTable;
     private PancakeFragment fragPancake;
     private DrinkFragment fragDrink;
+    private ConfirmFragment fragConfirm;
 
 
     private Button table;
@@ -43,6 +46,7 @@ public class OrderScreen extends AppCompatActivity {
     private Button drink;
     private Button send;
     private int checkID;
+    private ListView listView;
     private static int order_number = 0;
     public ArrayList<String> order = new ArrayList<String>();
     public ArrayList<String> listPancake = new ArrayList<String>();
@@ -51,7 +55,6 @@ public class OrderScreen extends AppCompatActivity {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private ReadMessages readMessages;
     public final static String QUANTITY = "QUANTITE";
-
 
 
     private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
@@ -130,7 +133,7 @@ public class OrderScreen extends AppCompatActivity {
         pancake.setEnabled(false);
         drink.setEnabled(false);
         send.setEnabled(false);
-
+        order.add("TABLE");
         // Initialisation du gestionnaire de fragments
         fragmentManager = getFragmentManager();
 
@@ -139,6 +142,29 @@ public class OrderScreen extends AppCompatActivity {
         fragTable = initFragment(R.id.frameLayoutFragment);
     }
 
+    public void ValidPancake(View v) {
+        order.add("CREPES");
+        for (int i = 1; i < 6; i++) {
+            String checkBoxesID = "PancakeQuantityNumber" + i;
+            checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+            if (Integer.parseInt((((TextView) findViewById(checkID)).getText().toString())) != 0) {
+                order.add(((TextView) findViewById(checkID)).getText().toString());
+            }
+        }
+        fragConfirm = initFragmentConfirm(R.id.frameLayoutFragment4);
+        FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
+        frameOrder.setVisibility(View.INVISIBLE);
+        FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
+        framePancake.setVisibility(View.INVISIBLE);
+        FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
+        frameDrink.setVisibility(View.INVISIBLE);
+        FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
+        frameConfirm.setVisibility(View.VISIBLE);
+
+        // Create ArrayAdapter using the planet list.
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.fragment_confim, order);
+        ((ListView) findViewById(R.id.listView)).setAdapter(listAdapter);
+    }
 
     public void PancakeButtonMinus(View v) {
         switch(v.getId()) {
@@ -338,19 +364,19 @@ public class OrderScreen extends AppCompatActivity {
                 break;
         }
     }
-
-    Handler h = new Handler();
-    Runnable runnable = new Runnable() {
-        public void run() {
-            RefreshQuantity();
-        }
-    };
-
-        public void RefreshQuantity()
-        {
-            writer.println("QUANTITE");
-            h.postDelayed(runnable, 5000);
-        }
+//
+//    Handler h = new Handler();
+//    Runnable runnable = new Runnable() {
+//        public void run() {
+//            RefreshQuantity();
+//        }
+//    };
+//
+//        public void RefreshQuantity()
+//        {
+//            writer.println("QUANTITE");
+//            h.postDelayed(runnable, 5000);
+//        }
 
     public void assignTable(View v){
         FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
@@ -359,6 +385,8 @@ public class OrderScreen extends AppCompatActivity {
         frameOrder.setVisibility(View.VISIBLE);
         FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
         frameDrink.setVisibility(View.INVISIBLE);
+        FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
+        frameConfirm.setVisibility(View.INVISIBLE);
     }
 
     public void pancakeOrder(View v){
@@ -370,6 +398,9 @@ public class OrderScreen extends AppCompatActivity {
         framePancake.setVisibility(View.VISIBLE);
         FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
         frameDrink.setVisibility(View.INVISIBLE);
+        FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
+        frameConfirm.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -381,6 +412,8 @@ public class OrderScreen extends AppCompatActivity {
         framePancake.setVisibility(View.INVISIBLE);
         FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
         frameDrink.setVisibility(View.VISIBLE);
+        FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
+        frameConfirm.setVisibility(View.INVISIBLE);
 
     }
 
@@ -460,6 +493,21 @@ public class OrderScreen extends AppCompatActivity {
         return fragment;
     }
 
+    private ConfirmFragment initFragmentConfirm(int id) {
+        // On récupère le fragment, ou null s'il n'existe pas encore
+        ConfirmFragment fragment = (ConfirmFragment) fragmentManager.findFragmentById(id);
+
+        // S'il n'existe pas, on le crée et on l'attache
+        if (fragment == null) {
+            fragment = new ConfirmFragment();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(id, fragment);
+            transaction.commit();
+        }
+
+        return fragment;
+    }
+
     // Cette méthode sert à attacher un fragment :
     // - s'il n'est pas attaché, on l'attache et on renvoie true
     // - sinon, on n'a rien à faire et on renvoie false
@@ -511,19 +559,17 @@ public class OrderScreen extends AppCompatActivity {
         super.onDestroy();
     }
 
-
-
     public void onCheckboxClicked(View view) {
         order_number++;
 
         // Is the view now checked?
         boolean checked = ((CheckBox) view) .isChecked();
-        order.add(((CheckBox) view).getText().toString());
         // Check which checkbox was clicked
         switch(view.getId()) {
 
             case R.id.checkBox1:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox1)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -535,6 +581,8 @@ public class OrderScreen extends AppCompatActivity {
                     pancake.setEnabled(true);
                 }
                 else{
+                    int last = order.size();
+                    order.remove(last-1);
                     for (int i=1; i < 10; i++){
                         String checkBoxesID = "checkBox" + i ;
                         checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
@@ -547,6 +595,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox2:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox2)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -558,6 +607,8 @@ public class OrderScreen extends AppCompatActivity {
                     pancake.setEnabled(true);
                 }
                 else{
+                    int last = order.size();
+                    order.remove(last-1);
                     for (int i=1; i < 10; i++){
                         String checkBoxesID = "checkBox" + i ;
                         checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
@@ -570,6 +621,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox3:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox3)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -581,6 +633,8 @@ public class OrderScreen extends AppCompatActivity {
                     pancake.setEnabled(true);
                 }
                 else{
+                    int last = order.size();
+                    order.remove(last-1);
                     for (int i=1; i < 10; i++){
                         String checkBoxesID = "checkBox" + i ;
                         checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
@@ -594,6 +648,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox4:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox4)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox1)).setEnabled(false);
@@ -605,6 +660,8 @@ public class OrderScreen extends AppCompatActivity {
                     pancake.setEnabled(true);
                 }
                 else{
+                    int last = order.size();
+                    order.remove(last-1);
                     for (int i=1; i < 10; i++){
                         String checkBoxesID = "checkBox" + i ;
                         checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
@@ -617,6 +674,7 @@ public class OrderScreen extends AppCompatActivity {
 
             case R.id.checkBox5:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox5)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -628,6 +686,8 @@ public class OrderScreen extends AppCompatActivity {
                     pancake.setEnabled(true);
                 }
                 else{
+                    int last = order.size();
+                    order.remove(last-1);
                     for (int i=1; i < 10; i++){
                         String checkBoxesID = "checkBox" + i ;
                         checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
@@ -641,6 +701,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox6:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox6)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -665,6 +726,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox7:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox7)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -689,6 +751,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox8:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox8)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);
@@ -713,6 +776,7 @@ public class OrderScreen extends AppCompatActivity {
                 break;
             case R.id.checkBox9:
                 if (checked) {
+                    order.add(((CheckBox) findViewById(R.id.checkBox9)).getText().toString());
                     ((CheckBox) findViewById(R.id.checkBox2)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox3)).setEnabled(false);
                     ((CheckBox) findViewById(R.id.checkBox4)).setEnabled(false);

@@ -111,7 +111,7 @@
                 android:id="@+id/PancakeButtonPlus2"
                 android:layout_width="43dp"
                 android:layout_height="wrap_content"
-                android:onClick="PancakeButtonPlus2"
+                android:onClick="PancakeButtonPlus"
                 android:text="+"/>
 
             <TextView
@@ -125,7 +125,7 @@
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:onClick="PancakeButtonMinus2"
+                android:onClick="PancakeButtonMinus"
                 android:text="-"/>
 
             <TextView
@@ -171,7 +171,7 @@
             android:id="@+id/PancakeButtonPlus3"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:onClick="PancakeButtonPlus3"
+            android:onClick="PancakeButtonPlus"
             android:text="+"/>
 
         <TextView
@@ -185,7 +185,7 @@
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="PancakeButtonMinus3"
+            android:onClick="PancakeButtonMinus"
             android:text="-"/>
 
         <TextView
@@ -231,7 +231,7 @@
             android:id="@+id/PancakeButtonPlus4"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:onClick="PancakeButtonPlus4"
+            android:onClick="PancakeButtonPlus"
             android:text="+"/>
 
         <TextView
@@ -246,7 +246,7 @@
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="PancakeButtonMinus4"
+            android:onClick="PancakeButtonMinus"
             android:text="-"/>
 
         <TextView
@@ -291,7 +291,7 @@
             android:id="@+id/PancakeButtonPlus5"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:onClick="PancakeButtonPlus5"
+            android:onClick="PancakeButtonPlus"
             android:text="+"/>
 
         <TextView
@@ -305,7 +305,7 @@
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="PancakeButtonMinus5"
+            android:onClick="PancakeButtonMinus"
             android:text="-"/>
 
         <TextView
@@ -321,4 +321,12 @@
             android:text="0"/>
     </LinearLayout>
 </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valider le choix des crêpes"
+        android:id="@+id/ValidPancake"
+        android:onClick="ValidPancake"
+        android:layout_gravity="bottom" />
 </LinearLayout>

@@ -59,6 +59,11 @@
         android:layout_height="match_parent"
         android:id="@+id/frameLayoutFragment3"
         android:layout_below="@+id/linearLayout" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayoutFragment4"
+        android:layout_below="@+id/linearLayout" />
 
 </RelativeLayout>
 
