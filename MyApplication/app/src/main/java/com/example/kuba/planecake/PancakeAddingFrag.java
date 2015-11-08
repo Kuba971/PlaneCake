@@ -86,6 +86,8 @@ public class PancakeAddingFrag extends Fragment {
                     command = ADD_COMMAND+" " + qte + " " + tp ;
                     network.execute(command);
                     readMessage.execute();
+                    quantite.setText("");
+                    type.setText("");
                 }
 
 
