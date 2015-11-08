@@ -66,7 +66,7 @@ public class OrderScreen extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
-            String name = "192.168.0.11";
+            String name = "10.0.2.2";
             int port = 7777;
             try {
                 Socket mySocket = new Socket(name, port);
