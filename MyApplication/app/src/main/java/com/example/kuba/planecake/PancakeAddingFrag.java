@@ -84,7 +84,7 @@ public class PancakeAddingFrag extends Fragment {
                     infoToast("Veuillez compléter tout les champs");
                 } else {
                     command = ADD_COMMAND+" " + qte + " " + tp ;
-                    network.execute(command);
+                    network.execute(command.toString());
                     readMessages.execute();
                 }
 
@@ -101,15 +101,16 @@ public class PancakeAddingFrag extends Fragment {
             String message = null;
             try {
                 message = reader.readLine();
-                //publishProgress(message);
+                publishProgress(message);
                 System.out.println(message);
             } catch (IOException e) {
                 System.out.println(e);
             }
-            if (message != null) {
-                infoToast(message);
-            }
             return null;
+        }
+        @Override
+        protected void onProgressUpdate(String... message) {
+            infoToast(message.toString());
         }
     }
 
