@@ -20,7 +20,7 @@ public class ConfirmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_pancake, container, false);
+        View v = inflater.inflate(R.layout.fragment_confirm, container, false);
 
         return v;}
 

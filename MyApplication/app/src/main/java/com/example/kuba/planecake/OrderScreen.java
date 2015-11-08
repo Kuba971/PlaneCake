@@ -5,8 +5,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,13 +21,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
-
 
 
 public class OrderScreen extends AppCompatActivity {
@@ -46,7 +39,8 @@ public class OrderScreen extends AppCompatActivity {
     private Button drink;
     private Button send;
     private int checkID;
-    private ListView listView;
+    private int pancakeViewID;
+    private int pancakeQuantityNumberID;
     private static int order_number = 0;
     public ArrayList<String> order = new ArrayList<String>();
     public ArrayList<String> listPancake = new ArrayList<String>();
@@ -66,7 +60,7 @@ public class OrderScreen extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
-            String name = "10.0.2.2";
+            String name = "192.168.0.11";
             int port = 7777;
             try {
                 Socket mySocket = new Socket(name, port);
@@ -145,10 +139,14 @@ public class OrderScreen extends AppCompatActivity {
     public void ValidPancake(View v) {
         order.add("CREPES");
         for (int i = 1; i < 6; i++) {
-            String checkBoxesID = "PancakeQuantityNumber" + i;
-            checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
-            if (Integer.parseInt((((TextView) findViewById(checkID)).getText().toString())) != 0) {
-                order.add(((TextView) findViewById(checkID)).getText().toString());
+            String PancakeViewID = "PancakeView" + i;
+            String PancakeQuantityNumberID = "PancakeQuantityNumber" + i;
+            pancakeViewID = getResources().getIdentifier(PancakeViewID, "id", OrderScreen.this.getPackageName());
+            pancakeQuantityNumberID = getResources().getIdentifier(PancakeQuantityNumberID, "id", OrderScreen.this.getPackageName());
+            if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
+                order.add(((TextView) findViewById(pancakeViewID)).getText().toString());
+                order.add("X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
+
             }
         }
         fragConfirm = initFragmentConfirm(R.id.frameLayoutFragment4);
@@ -161,9 +159,10 @@ public class OrderScreen extends AppCompatActivity {
         FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
         frameConfirm.setVisibility(View.VISIBLE);
 
-        // Create ArrayAdapter using the planet list.
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.fragment_confim, order);
-        ((ListView) findViewById(R.id.listView)).setAdapter(listAdapter);
+
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.fragment_confirm, order);
+        ListView listView = (ListView) findViewById(R.id.listViewPancake);
+        listView.setAdapter(listAdapter);
     }
 
     public void PancakeButtonMinus(View v) {
