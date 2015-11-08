@@ -1,25 +1,17 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:layout_height="match_parent" tools:context="com.example.kuba.planecake.ConfirmFragment"
+        android:layout_height="match_parent" tools:context=".ConfirmFragment"
     android:weightSum="1"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Récapitulatif de la commande : "
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="146dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        android:id="@+id/TableName"
-        android:layout_weight="0.08" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,6 +24,15 @@
         android:layout_width="match_parent"
         android:layout_height="182dp"
         android:id="@+id/listViewPancake"
-        android:smoothScrollbar="true" />
+        android:smoothScrollbar="true"
+        android:layout_weight="0.90" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Envoyer la commande"
+        android:id="@+id/SendCommand"
+        android:onClick="SendCommand"
+        android:layout_gravity="right" />
 
 </LinearLayout>

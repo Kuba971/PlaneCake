@@ -127,7 +127,7 @@ public class OrderScreen extends AppCompatActivity {
         pancake.setEnabled(false);
         drink.setEnabled(false);
         send.setEnabled(false);
-        order.add("TABLE");
+        order.add("-------------- TABLE --------------");
         // Initialisation du gestionnaire de fragments
         fragmentManager = getFragmentManager();
 
@@ -137,7 +137,7 @@ public class OrderScreen extends AppCompatActivity {
     }
 
     public void ValidPancake(View v) {
-        order.add("CREPES");
+        order.add("--------------- CREPES -----------------");
         for (int i = 1; i < 6; i++) {
             String PancakeViewID = "PancakeView" + i;
             String PancakeQuantityNumberID = "PancakeQuantityNumber" + i;
@@ -146,9 +146,9 @@ public class OrderScreen extends AppCompatActivity {
             if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
                 order.add(((TextView) findViewById(pancakeViewID)).getText().toString());
                 order.add("X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
-
             }
         }
+
         fragConfirm = initFragmentConfirm(R.id.frameLayoutFragment4);
         FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
         frameOrder.setVisibility(View.INVISIBLE);
@@ -159,10 +159,20 @@ public class OrderScreen extends AppCompatActivity {
         FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
         frameConfirm.setVisibility(View.VISIBLE);
 
+        send.setEnabled(true);
+    }
 
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.fragment_confirm, order);
-        ListView listView = (ListView) findViewById(R.id.listViewPancake);
-        listView.setAdapter(listAdapter);
+    public void SendCommand(View v){
+        int size = order.size();
+        for (int i = 3; i < size ; i++){
+            String[] parts = order.get(i + 1).split(" ");
+            int numberOfTime = Integer.parseInt(parts[1]);
+            for (int y = 0; y < numberOfTime; y ++) {
+                writer.println("COMMANDE " + order.get(i));
+            }
+            i++;
+        }
+
     }
 
     public void PancakeButtonMinus(View v) {
