@@ -34,29 +34,29 @@ public class PancakeAddingFrag extends Fragment {
     private EditText quantite;
     private EditText type;
 
-    public final static String ADD_COMMAND = "AJOUT";
+    public static String ADD_COMMAND = "AJOUT";
 
     public PancakeAddingFrag() {
         // Required empty public constructor
     }
 
-    private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
+    private class StartNetwork extends AsyncTask<String, Void, Boolean> {
 
-        @Override
-        protected Boolean doInBackground(Void... v) {
-            System.out.println("StartNetwork.doInBackground from AddingFrag");
-            String name = "10.0.2.2";
-            int port = 7777;
-            try {
-                mySocket = new Socket(name, port);
-                writer = new PrintWriter(mySocket.getOutputStream(), true);
-                reader = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
-                writer.print(ADD_COMMAND);
-                return true;
-            } catch (IOException e) {
-                return false;
+            @Override
+            protected Boolean doInBackground (String... params){
+                System.out.println("StartNetwork.doInBackground from AddingFrag");
+                String name = "10.0.2.2";
+                int port = 7777;
+                try {
+                    mySocket = new Socket(name, port);
+                    writer = new PrintWriter(mySocket.getOutputStream(), true);
+                    reader = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
+                    writer.println(params);
+                    return true;
+                } catch (IOException e) {
+                    return false;
+                }
             }
-        }
     }
 
     @Override
@@ -78,14 +78,16 @@ public class PancakeAddingFrag extends Fragment {
 
             public void onClick(View v) {
                 String command = null;
-                network.execute();
-                if (quantite == null || type == null) {
+                String qte = quantite.getText().toString();
+                String tp = type.getText().toString();
+                if (qte.matches("") || tp.matches("")) {
                     infoToast("Veuillez compléter tout les champs");
                 } else {
-                    command += " " + quantite.toString() + " " + type.toString();
+                    command = ADD_COMMAND+" " + qte + " " + tp ;
+                    network.execute(command);
+                    readMessages.execute();
                 }
-                writer.println(command);
-                readMessages.execute();
+
 
             }
         });
@@ -99,7 +101,7 @@ public class PancakeAddingFrag extends Fragment {
             String message = null;
             try {
                 message = reader.readLine();
-                publishProgress(message);
+                //publishProgress(message);
                 System.out.println(message);
             } catch (IOException e) {
                 System.out.println(e);
@@ -113,7 +115,7 @@ public class PancakeAddingFrag extends Fragment {
 
 
     private void infoToast(String str) {
-        Toast toast = Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getActivity(), str, Toast.LENGTH_LONG);
         toast.show();
     }
 }
