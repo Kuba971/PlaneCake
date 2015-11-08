@@ -27,7 +27,7 @@ public class PancakeAddingFrag extends Fragment {
 
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    ReadMessages readMessages = new ReadMessages();
+    ReadMessage readMessage = new ReadMessage();
     StartNetwork network = new StartNetwork();
     Socket mySocket;
 
@@ -43,15 +43,15 @@ public class PancakeAddingFrag extends Fragment {
     private class StartNetwork extends AsyncTask<String, Void, Boolean> {
 
             @Override
-            protected Boolean doInBackground (String... params){
-                System.out.println("StartNetwork.doInBackground from AddingFrag");
+            protected Boolean doInBackground (String... str){
+                System.out.println("StartNetwork.doInBackground from AddingFrag, str = "+str[0]);
                 String name = "10.0.2.2";
                 int port = 7777;
                 try {
                     mySocket = new Socket(name, port);
                     writer = new PrintWriter(mySocket.getOutputStream(), true);
                     reader = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
-                    writer.println(params);
+                    writer.println(str[0]);
                     return true;
                 } catch (IOException e) {
                     return false;
@@ -84,8 +84,8 @@ public class PancakeAddingFrag extends Fragment {
                     infoToast("Veuillez compléter tout les champs");
                 } else {
                     command = ADD_COMMAND+" " + qte + " " + tp ;
-                    network.execute(command.toString());
-                    readMessages.execute();
+                    network.execute(command);
+                    readMessage.execute();
                 }
 
 
@@ -94,11 +94,11 @@ public class PancakeAddingFrag extends Fragment {
         return v;
     }
 
-    private class ReadMessages extends AsyncTask<Void, String, Void> {
+    private class ReadMessage extends AsyncTask<Void, String, Void> {
 
         @Override
         protected Void doInBackground(Void... v) {
-            String message = null;
+            String message;
             try {
                 message = reader.readLine();
                 publishProgress(message);
@@ -109,8 +109,8 @@ public class PancakeAddingFrag extends Fragment {
             return null;
         }
         @Override
-        protected void onProgressUpdate(String... message) {
-            infoToast(message.toString());
+        protected void onProgressUpdate(String... messages) {
+            infoToast(messages[0]);
         }
     }
 
