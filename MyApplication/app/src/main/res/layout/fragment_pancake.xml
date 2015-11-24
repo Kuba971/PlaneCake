@@ -46,9 +46,11 @@
             android:gravity="right">
 
             <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
                 android:id="@+id/PancakeButtonPlus1"
-                android:layout_width="43dp"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
                 android:onClick="PancakeButtonPlus"
                 android:text="+"/>
 
@@ -59,9 +61,11 @@
                 android:text="0"/>
 
             <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
                 android:id="@+id/PancakeButtonMinus1"
                 android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:onClick="PancakeButtonMinus"
                 android:text="-"/>
 
@@ -108,9 +112,11 @@
             android:gravity="right">
 
             <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
                 android:id="@+id/PancakeButtonPlus2"
-                android:layout_width="43dp"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
                 android:onClick="PancakeButtonPlus"
                 android:text="+"/>
 
@@ -121,9 +127,11 @@
                 android:text="0"/>
 
             <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
                 android:id="@+id/PancakeButtonMinus2"
                 android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="right"
                 android:onClick="PancakeButtonMinus"
                 android:text="-"/>
@@ -168,9 +176,11 @@
             android:layout_gravity="bottom"
             android:gravity="right">
         <Button
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
             android:id="@+id/PancakeButtonPlus3"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
             android:onClick="PancakeButtonPlus"
             android:text="+"/>
 
@@ -181,9 +191,11 @@
             android:text="0"/>
 
         <Button
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
             android:id="@+id/PancakeButtonMinus3"
             android:layout_width="45dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="right"
             android:onClick="PancakeButtonMinus"
             android:text="-"/>
@@ -228,9 +240,11 @@
                 android:layout_gravity="bottom"
                 android:gravity="right">
         <Button
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
             android:id="@+id/PancakeButtonPlus4"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
             android:onClick="PancakeButtonPlus"
             android:text="+"/>
 
@@ -242,9 +256,11 @@
 
 
         <Button
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
             android:id="@+id/PancakeButtonMinus4"
             android:layout_width="45dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="right"
             android:onClick="PancakeButtonMinus"
             android:text="-"/>
@@ -288,9 +304,11 @@
             android:layout_gravity="bottom"
             android:gravity="right">
         <Button
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
             android:id="@+id/PancakeButtonPlus5"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
             android:onClick="PancakeButtonPlus"
             android:text="+"/>
 
@@ -301,9 +319,11 @@
             android:text="0" />
 
         <Button
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
             android:id="@+id/PancakeButtonMinus5"
             android:layout_width="45dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="right"
             android:onClick="PancakeButtonMinus"
             android:text="-"/>
@@ -323,8 +343,10 @@
 </LinearLayout>
 
     <Button
+        android:background="@drawable/buttonshape"
+        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="Valider le choix des crêpes"
         android:id="@+id/ValidPancake"
         android:onClick="ValidPancake"

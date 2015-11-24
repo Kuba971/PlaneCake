@@ -11,23 +11,39 @@
     tools:context=".FirstScreen">
 
     <Button
-        android:layout_width="188dp"
-        android:layout_height="80dp"
         android:text="@string/Command"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         android:id="@+id/Command"
         android:onClick="goToCommand"
         android:layout_gravity="center|bottom"
         android:layout_above="@+id/Reappro"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp" />
 
     <Button
-        android:layout_width="188dp"
-        android:layout_height="80dp"
         android:text="@string/Reappro"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
         android:id="@+id/Reappro"
         android:layout_gravity="center_horizontal|bottom"
         android:onClick="goToReplenishment"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>
