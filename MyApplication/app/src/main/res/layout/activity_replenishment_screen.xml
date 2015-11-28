@@ -26,19 +26,7 @@
             android:layout_height="40dp"
             android:text="@string/crepes"
             android:onClick="addPancake"
-            android:id="@+id/pancake"
-            android:layout_weight="1"
-            android:layout_margin="5dp" />
-
-        <Button
-            android:background="@drawable/buttonshape"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="@string/boissons"
-            android:onClick="addDrink"
-            android:id="@+id/drink"
+            android:id="@+id/addPancake"
             android:layout_weight="1"
             android:layout_margin="5dp" />
 

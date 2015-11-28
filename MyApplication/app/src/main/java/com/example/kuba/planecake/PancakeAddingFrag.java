@@ -2,6 +2,9 @@ package com.example.kuba.planecake;
 
 
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -27,9 +30,11 @@ public class PancakeAddingFrag extends Fragment {
 
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    ReadMessage readMessage = new ReadMessage();
-    StartNetwork network = new StartNetwork();
-    Socket mySocket;
+    private StockFragment stockFrag;
+    private ReadMessage readMessage = new ReadMessage();
+    private StartNetwork network = new StartNetwork();
+    private Socket mySocket;
+    private Context c;
 
     private EditText quantite;
     private EditText type;
@@ -44,7 +49,7 @@ public class PancakeAddingFrag extends Fragment {
 
             @Override
             protected Boolean doInBackground (String... str){
-                System.out.println("StartNetwork.doInBackground from AddingFrag, str = "+str[0]);
+                System.out.println("StartNetwork.doInBackground from AddingFrag, str = " + str[0]);
                 String name = "10.0.2.2";
                 int port = 7777;
                 try {
@@ -62,8 +67,6 @@ public class PancakeAddingFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //network.execute();
-        //readMessages.execute();
     }
 
     @Override
@@ -83,11 +86,15 @@ public class PancakeAddingFrag extends Fragment {
                 if (qte.matches("") || tp.matches("")) {
                     infoToast("Veuillez compléter tout les champs");
                 } else {
-                    command = ADD_COMMAND+" " + qte + " " + tp ;
+                    command = ADD_COMMAND + " " + qte + " " + tp;
                     network.execute(command);
                     readMessage.execute();
                     quantite.setText("");
                     type.setText("");
+                    FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
+                    stockFrag = new StockFragment();
+                    transaction.replace(R.id.frameLayoutFragment, stockFrag);
+                    transaction.commit();
                 }
 
 
@@ -116,9 +123,30 @@ public class PancakeAddingFrag extends Fragment {
         }
     }
 
+    public void onPause(){
+        if (network.getStatus() == AsyncTask.Status.FINISHED) {
+            readMessage.cancel(true);
+            network.cancel(true);
+            if (!mySocket.isClosed()) {
+                try {
+                    mySocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        c = activity.getApplicationContext();
+    }
 
     private void infoToast(String str) {
-        Toast toast = Toast.makeText(getActivity(), str, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(c, str, Toast.LENGTH_SHORT);
         toast.show();
     }
+
 }
