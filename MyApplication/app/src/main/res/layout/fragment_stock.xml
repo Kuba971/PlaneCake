@@ -8,17 +8,31 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:id="@+id/scroll"
-        android:layout_gravity="center">
+        android:layout_gravity="center|top"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp">
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:id="@+id/display"
-            android:layout_gravity="center" />
+            android:layout_gravity="center_horizontal|top"
+            android:scrollbars="vertical"/>
     </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Stock actuel"
+        android:id="@+id/textView5"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="5dp" />
 
 
 </FrameLayout>

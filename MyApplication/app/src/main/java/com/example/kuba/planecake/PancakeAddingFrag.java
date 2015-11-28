@@ -2,6 +2,7 @@ package com.example.kuba.planecake;
 
 
 
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -27,6 +28,7 @@ public class PancakeAddingFrag extends Fragment {
 
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private StockFragment stockFrag;
     ReadMessage readMessage = new ReadMessage();
     StartNetwork network = new StartNetwork();
     Socket mySocket;
@@ -62,8 +64,6 @@ public class PancakeAddingFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //network.execute();
-        //readMessages.execute();
     }
 
     @Override
@@ -88,6 +88,10 @@ public class PancakeAddingFrag extends Fragment {
                     readMessage.execute();
                     quantite.setText("");
                     type.setText("");
+                    FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
+                    stockFrag = new StockFragment();
+                    transaction.replace(R.id.frameLayoutFragment, stockFrag);
+                    transaction.commit();
                 }
 
 
@@ -118,7 +122,8 @@ public class PancakeAddingFrag extends Fragment {
 
 
     private void infoToast(String str) {
-        Toast toast = Toast.makeText(getActivity(), str, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT);
         toast.show();
     }
+
 }

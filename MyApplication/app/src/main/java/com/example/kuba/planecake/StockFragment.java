@@ -26,6 +26,7 @@ public class StockFragment extends Fragment {
     private TextView display;
     private ScrollView scroll;
 
+    public final static String START_STR = "Quantité de chacun des plats :";
     public final static String END = "FINLISTE";
     public final static String QUANTITY = "QUANTITE";
 
@@ -75,8 +76,11 @@ public class StockFragment extends Fragment {
             do{
                 try {
                     message = reader.readLine();
-                    publishProgress(message);
-                    System.out.println(message);
+                    if(message.equalsIgnoreCase(START_STR) || message.equalsIgnoreCase(END)) {
+                        System.out.println(message);
+                    }else{
+                        publishProgress(message);
+                    }
                 } catch (IOException e) {
                     break;
                 }
@@ -107,7 +111,6 @@ public class StockFragment extends Fragment {
     }
 
     public void onDestroy(){
-        super.onDestroy();
         readMessages.cancel(true);
         display.setText(" ");
         network.cancel(true);
@@ -118,12 +121,7 @@ public class StockFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+        super.onDestroy();
     }
-
-//    public void onResume(){
-//        super.onResume();
-//        network.execute();
-//        readMessages.execute();
-//    }
 
 }

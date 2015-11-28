@@ -75,11 +75,11 @@ public class ReplenishmentScreen extends AppCompatActivity {
             fragStock.onDestroy();
         }
 
-        if(pancakeAddFrag==null) {
+        if (pancakeAddFrag == null) {
             pancakeAddFrag = new PancakeAddingFrag();
             transaction.replace(R.id.frameLayoutFragment, pancakeAddFrag, "Frag_Pancake");
             fragStock = null;
-        }else{
+        } else {
             transaction.remove(pancakeAddFrag);
             pancakeAddFrag.onDetach();
             pancakeAddFrag = null;
@@ -99,7 +99,7 @@ public class ReplenishmentScreen extends AppCompatActivity {
         toast.show();
     }
 
-    public static void restartActivity(ReplenishmentScreen act){
+    public void restartActivity(ReplenishmentScreen act){
 
         Intent intent=new Intent();
         intent.setClass(act, act.getClass());
