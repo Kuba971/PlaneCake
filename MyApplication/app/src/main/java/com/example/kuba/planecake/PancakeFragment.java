@@ -57,7 +57,8 @@ public class PancakeFragment extends Fragment {
         int numberLine = order.listPancake.size();
         numberLine = numberLine - 2;
         for (int i = 0; i < numberLine/2; i++) {
-           listName.add(order.listPancake.get(i+(1+i)));
+           listName.add(order.listPancake.get(i+(1+i)));}
+            for (int i = 0; i < numberLine/2; i++) {
             listQuantity.add(order.listPancake.get(i+(2+i)));
             String PancakeName = "PancakeView" + (i+1);
             String PancakeStock = "PancakeStock" + (i+1);

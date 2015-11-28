@@ -3,6 +3,7 @@ package com.example.kuba.planecake;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -68,7 +73,7 @@ public class OrderScreen extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... v) {
             System.out.println("StartNetwork.doInBackground");
-            String name = "10.0.2.2";
+            String name = "192.168.0.11";
             int port = 7777;
             try {
                 mySocket = new Socket(name, port);
@@ -165,6 +170,7 @@ public class OrderScreen extends AppCompatActivity {
                 if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
                     order.add(indexForRemove,"X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
                     order.add(indexForRemove, ((TextView) findViewById(pancakeViewID)).getText().toString());
+                    ((TextView) findViewById(pancakeQuantityNumberID)).setText("0");
                                     }
             }
         }
@@ -178,6 +184,7 @@ public class OrderScreen extends AppCompatActivity {
                 if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
                     order.add(((TextView) findViewById(pancakeViewID)).getText().toString());
                     order.add("X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
+                   ((TextView) findViewById(pancakeQuantityNumberID)).setText("0");
                 }
             }
         }
@@ -192,6 +199,7 @@ public class OrderScreen extends AppCompatActivity {
         frameDrink.setVisibility(View.VISIBLE);
         FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
         frameConfirm.setVisibility(View.INVISIBLE);
+
 
         drink.setEnabled(true);
     }
@@ -216,8 +224,9 @@ public class OrderScreen extends AppCompatActivity {
                 drinkViewID = getResources().getIdentifier(DrinkViewID, "id", OrderScreen.this.getPackageName());
                 drinkQuantityNumberID = getResources().getIdentifier(DrinkQuantityNumberID, "id", OrderScreen.this.getPackageName());
                 if (Integer.parseInt((((TextView) findViewById(drinkQuantityNumberID)).getText().toString())) != 0) {
-                    order.add(indexForRemove, ((TextView) findViewById(drinkViewID)).getText().toString());
-                    order.add(indexForRemove, "X " + (((TextView) findViewById(drinkQuantityNumberID)).getText().toString()));
+                    order.add("X " + (((TextView) findViewById(drinkQuantityNumberID)).getText().toString()));
+                    order.add(((TextView) findViewById(drinkViewID)).getText().toString());
+                    ((TextView) findViewById(drinkQuantityNumberID)).setText("0");
                 }
             }
 
@@ -230,8 +239,9 @@ public class OrderScreen extends AppCompatActivity {
                 drinkViewID = getResources().getIdentifier(DrinkViewID, "id", OrderScreen.this.getPackageName());
                 drinkQuantityNumberID = getResources().getIdentifier(DrinkQuantityNumberID, "id", OrderScreen.this.getPackageName());
                 if (Integer.parseInt((((TextView) findViewById(drinkQuantityNumberID)).getText().toString())) != 0) {
-                    order.add("X " + (((TextView) findViewById(drinkQuantityNumberID)).getText().toString()));
                     order.add(((TextView) findViewById(drinkViewID)).getText().toString());
+                    order.add("X " + (((TextView) findViewById(drinkQuantityNumberID)).getText().toString()));
+                    ((TextView) findViewById(drinkQuantityNumberID)).setText("0");
 
                 }
             }
@@ -255,14 +265,71 @@ public class OrderScreen extends AppCompatActivity {
     }
 
     public void SendCommand(View v){
-        int size = order.size();
-        for (int i = 3; i < size ; i++){
-            String[] parts = order.get(i + 1).split(" ");
-            int numberOfTime = Integer.parseInt(parts[1]);
-            for (int y = 0; y < numberOfTime; y ++) {
-                writer.println("COMMANDE " + order.get(i));
+        int startOrder = 3;
+            while (order.get(startOrder).toString() != "--------------- BOISSONS -----------------") {
+                String[] parts = order.get(startOrder + 1).split(" ");
+                int numberOfTime = Integer.parseInt(parts[1]);
+                for (int y = 0; y < numberOfTime; y++) {
+                    writer.println("COMMANDE " + order.get(startOrder));
+                }
+                startOrder= startOrder+2;
             }
-            i++;
+
+
+        File file = new File("order_log.txt");
+
+        FileOutputStream fos = null;
+
+        try {
+
+            fos = new FileOutputStream(file);
+
+            // Writes bytes from the specified byte array to this file output stream
+            for (String object : order) {
+                fos.write(object.getBytes());
+            }
+
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found" + e);
+        }
+        catch (IOException ioe) {
+            System.out.println("Exception while writing file " + ioe);
+        }
+        finally {
+            // close the streams using close method
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            }
+            catch (IOException ioe) {
+                System.out.println("Error while closing stream: " + ioe);
+            }
+
+        }
+
+        String tableToRed = order.get(1).toString();
+        String[] numberOfTable = tableToRed.split(" ");
+        String nameOfCheckTable = "checkBox";
+        nameOfCheckTable = nameOfCheckTable + numberOfTable[1];
+        checkID = getResources().getIdentifier(nameOfCheckTable, "id", OrderScreen.this.getPackageName());
+            ((CheckBox) findViewById(checkID)).setEnabled(false);
+            ((CheckBox) findViewById(checkID)).setTextColor(Color.RED);
+        ((CheckBox) findViewById(checkID)).setChecked(false);
+        order.clear();
+        order.add("-------------- TABLE --------------");
+        assignTable(v);
+        fragTable = initFragment(R.id.frameLayoutFragment);
+        pancake.setEnabled(false);
+        drink.setEnabled(false);
+        send.setEnabled(false);
+        for (int i=1; i < 10; i++){
+            String checkBoxesID = "checkBox" + i ;
+            checkID = getResources().getIdentifier(checkBoxesID, "id", OrderScreen.this.getPackageName());
+            if (((CheckBox) findViewById(checkID)).getCurrentTextColor() != (Color.RED)){
+                ((CheckBox) findViewById(checkID)).setEnabled(true);
+            }
         }
 
     }
