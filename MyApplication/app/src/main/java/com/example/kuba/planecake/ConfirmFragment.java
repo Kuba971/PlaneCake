@@ -25,6 +25,7 @@ public class ConfirmFragment extends Fragment {
 
         listView  = (ListView) v.findViewById(R.id.listViewPancake);
         listAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, orderScreen.order);
+        listView.setAdapter(null);
         listView.setAdapter(listAdapter);
         return v;}
 

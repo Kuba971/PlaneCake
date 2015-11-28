@@ -1,9 +1,299 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.example.kuba.planecake.DrinkFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/DrinkChooseView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.example.kuba.planecake.DrinkFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Boissons"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/LayoutDrink1"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.16"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/DrinkView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Canette 33cl(coca, sprite, orangina....)" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonPlus1"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:onClick="DrinkButtonPlus"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/DrinkQuantityNumber1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonMinus1"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:onClick="DrinkButtonMinus"
+                android:text="-"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutDrink2"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/DrinkView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Bouteille et cannette 50cl"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonPlus2"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:onClick="DrinkButtonPlus"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/DrinkQuantityNumber2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonMinus2"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:onClick="DrinkButtonMinus"
+                android:text="-"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutDrink3"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/DrinkView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Boisson 1.5 L"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonPlus3"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:onClick="DrinkButtonPlus"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/DrinkQuantityNumber3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonMinus3"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:onClick="DrinkButtonMinus"
+                android:text="-"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutDrink4"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/DrinkView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Boisson 2.0 L"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonPlus4"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:onClick="DrinkButtonPlus"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/DrinkQuantityNumber4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonMinus4"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:onClick="DrinkButtonMinus"
+                android:text="-"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LayoutDrink5"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.12">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/DrinkView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Bouteille bierre 33 cl"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right">
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonPlus5"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:onClick="DrinkButtonPlus"
+                android:text="+"/>
+
+            <TextView
+                android:id="@+id/DrinkQuantityNumber5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+            <Button
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:id="@+id/DrinkButtonMinus5"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:onClick="DrinkButtonMinus"
+                android:text="-"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:background="@drawable/buttonshape"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Valider le choix des boissons"
+        android:id="@+id/ValidDrink"
+        android:onClick="ValidDrink"
+        android:layout_gravity="bottom" />
+</LinearLayout>

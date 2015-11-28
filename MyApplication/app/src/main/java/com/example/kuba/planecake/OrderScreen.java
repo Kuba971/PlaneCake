@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class OrderScreen extends AppCompatActivity {
@@ -41,6 +42,9 @@ public class OrderScreen extends AppCompatActivity {
     private int checkID;
     private int pancakeViewID;
     private int pancakeQuantityNumberID;
+    private int drinkViewID;
+    private int drinkQuantityNumberID;
+
     private static int order_number = 0;
     public ArrayList<String> order = new ArrayList<String>();
     public ArrayList<String> listPancake = new ArrayList<String>();
@@ -137,29 +141,113 @@ public class OrderScreen extends AppCompatActivity {
     }
 
     public void ValidPancake(View v) {
-        order.add("--------------- CREPES -----------------");
-        for (int i = 1; i < 6; i++) {
-            String PancakeViewID = "PancakeView" + i;
-            String PancakeQuantityNumberID = "PancakeQuantityNumber" + i;
-            pancakeViewID = getResources().getIdentifier(PancakeViewID, "id", OrderScreen.this.getPackageName());
-            pancakeQuantityNumberID = getResources().getIdentifier(PancakeQuantityNumberID, "id", OrderScreen.this.getPackageName());
-            if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
-                order.add(((TextView) findViewById(pancakeViewID)).getText().toString());
-                order.add("X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
+        int index = 0;
+        if (drink.isEnabled()) {
+            for (String object : order) {
+                if (object.toString() == "--------------- CREPES -----------------") {
+                    index = order.indexOf(object);
+                }
+            }
+                    int indexForRemove = index + 1;
+                    while (order.get(indexForRemove).toString() != "--------------- BOISSONS -----------------") {
+                        order.remove(indexForRemove);
+                    }
+
+            for (int i = 1; i < 6; i++) {
+                String PancakeViewID = "PancakeView" + i;
+                String PancakeQuantityNumberID = "PancakeQuantityNumber" + i;
+                pancakeViewID = getResources().getIdentifier(PancakeViewID, "id", OrderScreen.this.getPackageName());
+                pancakeQuantityNumberID = getResources().getIdentifier(PancakeQuantityNumberID, "id", OrderScreen.this.getPackageName());
+                if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
+                    order.add(indexForRemove,"X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
+                    order.add(indexForRemove, ((TextView) findViewById(pancakeViewID)).getText().toString());
+                                    }
+            }
+        }
+            else {
+            order.add("--------------- CREPES -----------------");
+            for (int i = 1; i < 6; i++) {
+                String PancakeViewID = "PancakeView" + i;
+                String PancakeQuantityNumberID = "PancakeQuantityNumber" + i;
+                pancakeViewID = getResources().getIdentifier(PancakeViewID, "id", OrderScreen.this.getPackageName());
+                pancakeQuantityNumberID = getResources().getIdentifier(PancakeQuantityNumberID, "id", OrderScreen.this.getPackageName());
+                if (Integer.parseInt((((TextView) findViewById(pancakeQuantityNumberID)).getText().toString())) != 0) {
+                    order.add(((TextView) findViewById(pancakeViewID)).getText().toString());
+                    order.add("X " + (((TextView) findViewById(pancakeQuantityNumberID)).getText().toString()));
+                }
             }
         }
 
-        fragConfirm = initFragmentConfirm(R.id.frameLayoutFragment4);
+        fragDrink = initFragmentDrink(R.id.frameLayoutFragment3);
+
         FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
         frameOrder.setVisibility(View.INVISIBLE);
         FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
         framePancake.setVisibility(View.INVISIBLE);
         FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
-        frameDrink.setVisibility(View.INVISIBLE);
+        frameDrink.setVisibility(View.VISIBLE);
         FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
-        frameConfirm.setVisibility(View.VISIBLE);
+        frameConfirm.setVisibility(View.INVISIBLE);
 
-        send.setEnabled(true);
+        drink.setEnabled(true);
+    }
+
+    public void ValidDrink(View v) {
+
+        int index = 0;
+        if (send.isEnabled()) {
+            for (String object : order) {
+                if (object.toString() == "--------------- BOISSONS -----------------") {
+                    index = order.indexOf(object);
+                }
+            }
+            int indexForRemove = index + 1;
+            while (order.get(indexForRemove).toString() != "--------------- FIN -----------------") {
+                order.remove(indexForRemove);
+            }
+
+            for (int i = 1; i < 6; i++) {
+                String DrinkViewID = "DrinkView" + i;
+                String DrinkQuantityNumberID = "DrinkQuantityNumber" + i;
+                drinkViewID = getResources().getIdentifier(DrinkViewID, "id", OrderScreen.this.getPackageName());
+                drinkQuantityNumberID = getResources().getIdentifier(DrinkQuantityNumberID, "id", OrderScreen.this.getPackageName());
+                if (Integer.parseInt((((TextView) findViewById(drinkQuantityNumberID)).getText().toString())) != 0) {
+                    order.add(indexForRemove, ((TextView) findViewById(drinkViewID)).getText().toString());
+                    order.add(indexForRemove, "X " + (((TextView) findViewById(drinkQuantityNumberID)).getText().toString()));
+                }
+            }
+
+        } else {
+            order.add("--------------- BOISSONS -----------------");
+
+            for (int i = 1; i < 6; i++) {
+                String DrinkViewID = "DrinkView" + i;
+                String DrinkQuantityNumberID = "DrinkQuantityNumber" + i;
+                drinkViewID = getResources().getIdentifier(DrinkViewID, "id", OrderScreen.this.getPackageName());
+                drinkQuantityNumberID = getResources().getIdentifier(DrinkQuantityNumberID, "id", OrderScreen.this.getPackageName());
+                if (Integer.parseInt((((TextView) findViewById(drinkQuantityNumberID)).getText().toString())) != 0) {
+                    order.add("X " + (((TextView) findViewById(drinkQuantityNumberID)).getText().toString()));
+                    order.add(((TextView) findViewById(drinkViewID)).getText().toString());
+
+                }
+            }
+
+            order.add("--------------- FIN -----------------");
+        }
+
+            fragConfirm = initFragmentConfirm(R.id.frameLayoutFragment4);
+
+            FrameLayout frameOrder = (FrameLayout) findViewById(R.id.frameLayoutFragment);
+            frameOrder.setVisibility(View.INVISIBLE);
+            FrameLayout framePancake = (FrameLayout) findViewById(R.id.frameLayoutFragment2);
+            framePancake.setVisibility(View.INVISIBLE);
+            FrameLayout frameDrink = (FrameLayout) findViewById(R.id.frameLayoutFragment3);
+            frameDrink.setVisibility(View.INVISIBLE);
+            FrameLayout frameConfirm = (FrameLayout) findViewById(R.id.frameLayoutFragment4);
+            frameConfirm.setVisibility(View.VISIBLE);
+
+            send.setEnabled(true);
+
     }
 
     public void SendCommand(View v){
@@ -373,6 +461,125 @@ public class OrderScreen extends AppCompatActivity {
                 break;
         }
     }
+
+    public void DrinkButtonMinus(View v) {
+        switch(v.getId()) {
+            case R.id.DrinkButtonMinus1:
+                TextView quantityView1 = (TextView) findViewById(R.id.DrinkQuantityNumber1);
+                int quantity1 = Integer.parseInt(quantityView1.getText().toString());
+                if (quantity1 > 0) {
+                    quantity1--;
+                    quantityView1.setText(quantity1 + "");
+                }
+                else
+                {
+                    quantityView1.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.DrinkButtonMinus2:
+                TextView quantityView2 = (TextView) findViewById(R.id.DrinkQuantityNumber2);
+                int quantity2 = Integer.parseInt(quantityView2.getText().toString());
+                if (quantity2 > 0) {
+                    quantity2--;
+                    quantityView2.setText(quantity2 + "");
+                }
+                else
+                {
+                    quantityView2.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.DrinkButtonMinus3:
+                TextView quantityView3 = (TextView) findViewById(R.id.DrinkQuantityNumber3);
+                int quantity3 = Integer.parseInt(quantityView3.getText().toString());
+                if (quantity3 > 0) {
+                    quantity3--;
+                    quantityView3.setText(quantity3 + "");
+                }
+                else
+                {
+                    quantityView3.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.DrinkButtonMinus4:
+                TextView quantityView4 = (TextView) findViewById(R.id.DrinkQuantityNumber4);
+                int quantity4 = Integer.parseInt(quantityView4.getText().toString());
+                if (quantity4 > 0) {
+                    quantity4--;
+                    quantityView4.setText(quantity4 + "");
+                }
+                else
+                {
+                    quantityView4.setTextColor(Color.RED);
+                }
+
+                break;
+            case R.id.DrinkButtonMinus5:
+                TextView quantityView5 = (TextView) findViewById(R.id.DrinkQuantityNumber5);
+                int quantity5 = Integer.parseInt(quantityView5.getText().toString());
+                if (quantity5 > 0) {
+                    quantity5--;
+                    quantityView5.setText(quantity5 + "");
+                }
+                else
+                {
+                    quantityView5.setTextColor(Color.RED);
+                }
+
+                break;
+        }
+    }
+
+    public void DrinkButtonPlus(View v) {
+        switch(v.getId()) {
+            case R.id.DrinkButtonPlus1:
+                TextView quantityView1 = (TextView) findViewById(R.id.DrinkQuantityNumber1);
+                int quantity1 = Integer.parseInt(quantityView1.getText().toString());
+                    quantity1++;
+                    quantityView1.setText(quantity1+ "");
+                    quantityView1.setTextColor(Color.GRAY);
+
+                break;
+
+            case R.id.DrinkButtonPlus2:
+                TextView quantityView2 = (TextView) findViewById(R.id.DrinkQuantityNumber2);
+                int quantity2 = Integer.parseInt(quantityView2.getText().toString());
+                    quantity2++;
+                    quantityView2.setText(quantity2+ "");
+                    quantityView2.setTextColor(Color.GRAY);
+
+
+                break;
+            case R.id.DrinkButtonPlus3:
+                TextView quantityView3 = (TextView) findViewById(R.id.DrinkQuantityNumber3);
+                int quantity3 = Integer.parseInt(quantityView3.getText().toString());
+                    quantity3++;
+                    quantityView3.setText(quantity3+ "");
+                    quantityView3.setTextColor(Color.GRAY);
+
+
+                break;
+            case R.id.DrinkButtonPlus4:
+                TextView quantityView4 = (TextView) findViewById(R.id.DrinkQuantityNumber4);
+                int quantity4 = Integer.parseInt(quantityView4.getText().toString());
+                    quantity4++;
+                    quantityView4.setText(quantity4+ "");
+                    quantityView4.setTextColor(Color.GRAY);
+
+
+                break;
+            case R.id.DrinkButtonPlus5:
+                TextView quantityView5 = (TextView) findViewById(R.id.DrinkQuantityNumber5);
+                int quantity5 = Integer.parseInt(quantityView5.getText().toString());
+                    quantity5++;
+                    quantityView5.setText(quantity5+ "");
+                    quantityView5.setTextColor(Color.GRAY);
+
+                break;
+        }
+    }
 //
 //    Handler h = new Handler();
 //    Runnable runnable = new Runnable() {
@@ -424,6 +631,18 @@ public class OrderScreen extends AppCompatActivity {
         FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
         frameConfirm.setVisibility(View.INVISIBLE);
 
+    }
+
+    public void sendToKitchen(View v){
+        fragConfirm = initFragmentConfirm(R.id.frameLayoutFragment4);
+        FrameLayout frameOrder = (FrameLayout)findViewById(R.id.frameLayoutFragment);
+        frameOrder.setVisibility(View.INVISIBLE);
+        FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
+        framePancake.setVisibility(View.INVISIBLE);
+        FrameLayout frameDrink = (FrameLayout)findViewById(R.id.frameLayoutFragment3);
+        frameDrink.setVisibility(View.INVISIBLE);
+        FrameLayout frameConfirm = (FrameLayout)findViewById(R.id.frameLayoutFragment4);
+        frameConfirm.setVisibility(View.VISIBLE);
     }
 
         @Override

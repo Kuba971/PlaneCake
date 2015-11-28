@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="Envoyer"
+            android:text="Recap"
             android:onClick="sendToKitchen"
             android:id="@+id/send"
             android:layout_margin="5dp" />
