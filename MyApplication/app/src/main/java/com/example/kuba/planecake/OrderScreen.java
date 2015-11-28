@@ -48,6 +48,10 @@ public class OrderScreen extends AppCompatActivity {
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private ReadMessages readMessages;
+    private StartNetwork network = new StartNetwork();
+    Socket mySocket;
+
+
     public final static String QUANTITY = "QUANTITE";
 
 
@@ -63,7 +67,7 @@ public class OrderScreen extends AppCompatActivity {
             String name = "10.0.2.2";
             int port = 7777;
             try {
-                Socket mySocket = new Socket(name, port);
+                mySocket = new Socket(name, port);
                 writer = new PrintWriter(mySocket.getOutputStream(), true);
                 reader = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                 return true;
@@ -114,7 +118,7 @@ public class OrderScreen extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        new StartNetwork().execute();
+        network.execute();
         }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -555,7 +559,6 @@ public class OrderScreen extends AppCompatActivity {
         System.out.println("ChatActivity.onRestart");
     }
 
-
     @Override
     protected void onStop() {
         System.out.println("ChatActivity.onStop");
@@ -563,8 +566,16 @@ public class OrderScreen extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        System.out.println("ChatActivity.onDestroy");
+    public void onDestroy(){
+        readMessages.cancel(true);
+        network.cancel(true);
+        if(!mySocket.isClosed()){
+            try {
+                mySocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         super.onDestroy();
     }
 
