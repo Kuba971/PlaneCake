@@ -2,7 +2,9 @@ package com.example.kuba.planecake;
 
 
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -32,6 +34,7 @@ public class PancakeAddingFrag extends Fragment {
     ReadMessage readMessage = new ReadMessage();
     StartNetwork network = new StartNetwork();
     Socket mySocket;
+    Context c;
 
     private EditText quantite;
     private EditText type;
@@ -46,7 +49,7 @@ public class PancakeAddingFrag extends Fragment {
 
             @Override
             protected Boolean doInBackground (String... str){
-                System.out.println("StartNetwork.doInBackground from AddingFrag, str = "+str[0]);
+                System.out.println("StartNetwork.doInBackground from AddingFrag, str = " + str[0]);
                 String name = "10.0.2.2";
                 int port = 7777;
                 try {
@@ -83,7 +86,7 @@ public class PancakeAddingFrag extends Fragment {
                 if (qte.matches("") || tp.matches("")) {
                     infoToast("Veuillez compléter tout les champs");
                 } else {
-                    command = ADD_COMMAND+" " + qte + " " + tp ;
+                    command = ADD_COMMAND + " " + qte + " " + tp;
                     network.execute(command);
                     readMessage.execute();
                     quantite.setText("");
@@ -120,9 +123,28 @@ public class PancakeAddingFrag extends Fragment {
         }
     }
 
+    public void onPause(){
+        readMessage.cancel(true);
+        network.cancel(true);
+        if(!mySocket.isClosed()){
+            try {
+                mySocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        c = activity.getApplicationContext();
+    }
+
 
     private void infoToast(String str) {
-        Toast toast = Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(c, str, Toast.LENGTH_SHORT);
         toast.show();
     }
 
