@@ -26,7 +26,7 @@
             android:layout_height="40dp"
             android:text="@string/crepes"
             android:onClick="addPancake"
-            android:id="@+id/pancake"
+            android:id="@+id/addPancake"
             android:layout_weight="1"
             android:layout_margin="5dp" />
 

@@ -31,10 +31,10 @@ public class PancakeAddingFrag extends Fragment {
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private StockFragment stockFrag;
-    ReadMessage readMessage = new ReadMessage();
-    StartNetwork network = new StartNetwork();
-    Socket mySocket;
-    Context c;
+    private ReadMessage readMessage = new ReadMessage();
+    private StartNetwork network = new StartNetwork();
+    private Socket mySocket;
+    private Context c;
 
     private EditText quantite;
     private EditText type;
@@ -124,16 +124,18 @@ public class PancakeAddingFrag extends Fragment {
     }
 
     public void onPause(){
-        readMessage.cancel(true);
-        network.cancel(true);
-        if(!mySocket.isClosed()){
-            try {
-                mySocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (network.getStatus() == AsyncTask.Status.FINISHED) {
+            readMessage.cancel(true);
+            network.cancel(true);
+            if (!mySocket.isClosed()) {
+                try {
+                    mySocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        super.onDestroy();
+        super.onPause();
     }
 
     @Override
@@ -141,7 +143,6 @@ public class PancakeAddingFrag extends Fragment {
         super.onAttach(activity);
         c = activity.getApplicationContext();
     }
-
 
     private void infoToast(String str) {
         Toast toast = Toast.makeText(c, str, Toast.LENGTH_SHORT);

@@ -111,14 +111,16 @@ public class StockFragment extends Fragment {
     }
 
     public void onDestroy(){
-        readMessages.cancel(true);
-        display.setText(" ");
-        network.cancel(true);
-        if(!mySocket.isClosed()){
-            try {
-                mySocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(network.getStatus() == AsyncTask.Status.FINISHED) {
+            readMessages.cancel(true);
+            display.setText(" ");
+            network.cancel(true);
+            if (!mySocket.isClosed()) {
+                try {
+                    mySocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         super.onDestroy();

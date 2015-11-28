@@ -1,24 +1,30 @@
 package com.example.kuba.planecake;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
 public class ReplenishmentScreen extends AppCompatActivity {
 
+    public static final String FRAG_STOCK = "Frag_Stock";
+    public static final String FRAG_PANCAKE = "Frag_Pancake";
     private FragmentManager fragmentManager;
     private StockFragment fragStock;
     private PancakeAddingFrag pancakeAddFrag;
     private Context context;
+    private Button reapButton;
 
     protected void onStart() {
         super.onStart();
@@ -28,6 +34,7 @@ public class ReplenishmentScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_replenishment_screen);
+        reapButton = (Button) findViewById(R.id.addPancake);
         context = getApplicationContext();
         fragmentManager = getFragmentManager();
         fragStock = (StockFragment) fragmentManager.findFragmentById(R.id.frameLayoutFragment);
@@ -40,7 +47,7 @@ public class ReplenishmentScreen extends AppCompatActivity {
         if (frag == null) {
             frag = new StockFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.frameLayoutFragment, frag);
+            transaction.add(R.id.frameLayoutFragment, frag, FRAG_STOCK);
             transaction.commit();
         }
     }
@@ -70,14 +77,12 @@ public class ReplenishmentScreen extends AppCompatActivity {
     public void addPancake(View v){
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment f = fragmentManager.findFragmentById(R.id.frameLayoutFragment);
 
-        if (fragStock != null) {
-            fragStock.onDestroy();
-        }
 
-        if (pancakeAddFrag == null) {
+        if (f instanceof StockFragment) {
             pancakeAddFrag = new PancakeAddingFrag();
-            transaction.replace(R.id.frameLayoutFragment, pancakeAddFrag, "Frag_Pancake");
+            transaction.replace(R.id.frameLayoutFragment, pancakeAddFrag, FRAG_PANCAKE);
             fragStock = null;
         } else {
             transaction.remove(pancakeAddFrag);
@@ -89,10 +94,6 @@ public class ReplenishmentScreen extends AppCompatActivity {
 
     }
 
-
-    public void addDrink(View v){
-        soonToast();
-    }
 
     private void soonToast() {
         Toast toast = Toast.makeText(context, "Soon Available", Toast.LENGTH_SHORT);
