@@ -22,9 +22,10 @@ public class StockFragment extends Fragment {
     private PrintWriter writer = new PrintWriter(System.out, true);
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private String toDisplay ="";
+    private String stringToDisplay ="";
     private TextView display;
-    private ScrollView scroll;
+    private ScrollView scrollView;
+
 
     public final static String START_STR = "Quantité de chacun des plats :";
     public final static String END = "FINLISTE";
@@ -32,10 +33,11 @@ public class StockFragment extends Fragment {
 
 
     ReadMessages readMessages = new ReadMessages();
-    StartNetwork network = new StartNetwork();
+    StartNetwork networkActivity = new StartNetwork();
     Socket mySocket;
 
     public StockFragment() {
+
     }
 
     private class StartNetwork extends AsyncTask<Void, Void, Boolean> {
@@ -64,9 +66,9 @@ public class StockFragment extends Fragment {
     }
 
     private void displayMessage(String message) {
-        toDisplay += message;
-        display.setText(toDisplay);
-        scroll.fullScroll(View.FOCUS_DOWN);
+        stringToDisplay += message;
+        display.setText(stringToDisplay);
+        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
     private class ReadMessages extends AsyncTask<Void, String, Void> {
@@ -76,6 +78,10 @@ public class StockFragment extends Fragment {
             do{
                 try {
                     message = reader.readLine();
+
+                    //La premiere et la derniere string renvoyées par le serveur ne nous intéresse pas
+                    //On les affiche en console uniquement pour suivre l'avancement,
+                    //ainsi seules les données pertinentes pour le user sont publiées
                     if(message.equalsIgnoreCase(START_STR) || message.equalsIgnoreCase(END)) {
                         System.out.println(message);
                     }else{
@@ -98,7 +104,7 @@ public class StockFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        network.execute();
+        networkActivity.execute();
         readMessages.execute();
     }
 
@@ -106,15 +112,17 @@ public class StockFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_stock, container, false);
         display = (TextView) v.findViewById(R.id.display);
-        scroll = (ScrollView) v.findViewById(R.id.scroll);
+        scrollView = (ScrollView) v.findViewById(R.id.scroll);
         return v;
     }
 
     public void onDestroy(){
-        if(network.getStatus() == AsyncTask.Status.FINISHED) {
+
+        //On vérifie le status de la connexion pour eviter un crash à la destruction du fragment
+        if(networkActivity.getStatus() == AsyncTask.Status.FINISHED) {
             readMessages.cancel(true);
             display.setText(" ");
-            network.cancel(true);
+            networkActivity.cancel(true);
             if (!mySocket.isClosed()) {
                 try {
                     mySocket.close();
@@ -125,5 +133,4 @@ public class StockFragment extends Fragment {
         }
         super.onDestroy();
     }
-
 }
