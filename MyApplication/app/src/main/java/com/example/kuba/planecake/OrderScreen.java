@@ -650,19 +650,6 @@ public class OrderScreen extends AppCompatActivity {
                 break;
         }
     }
-//
-//    Handler h = new Handler();
-//    Runnable runnable = new Runnable() {
-//        public void run() {
-//            RefreshQuantity();
-//        }
-//    };
-//
-//        public void RefreshQuantity()
-//        {
-//            writer.println("QUANTITE");
-//            h.postDelayed(runnable, 5000);
-//        }
 
     public void assignTable(View v){
         FrameLayout framePancake = (FrameLayout)findViewById(R.id.frameLayoutFragment2);
