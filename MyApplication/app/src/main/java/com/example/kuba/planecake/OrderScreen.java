@@ -105,7 +105,6 @@ public class OrderScreen extends AppCompatActivity {
                 try {
                     String message = reader.readLine();
                         listPancake.add(message);
-                    System.out.println("DISPALYYYYYYYYY2 ::::: " + message);
                     publishProgress(message);
                 } catch (IOException e) {
                     break;
