@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,19 +37,9 @@ public class ReplenishmentScreen extends AppCompatActivity {
         context = getApplicationContext();
         fragmentManager = getFragmentManager();
         fragStock = (StockFragment) fragmentManager.findFragmentById(R.id.frameLayoutFragment);
-
         createAndAddStockFragment(fragStock);
     }
 
-    private void createAndAddStockFragment(StockFragment frag) {
-
-        if (frag == null) {
-            frag = new StockFragment();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.frameLayoutFragment, frag, FRAG_STOCK);
-            transaction.commit();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,34 +63,44 @@ public class ReplenishmentScreen extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //param mandatory:  StockFragment
+    private void createAndAddStockFragment(StockFragment frag) {
+
+        if (frag == null) {
+            frag = new StockFragment();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.frameLayoutFragment, frag, FRAG_STOCK);
+            transaction.commit();
+        }
+    }
+
+    //Action quand le user clique sur le bouton Reap.crepes
     public void addPancake(View v){
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        Fragment f = fragmentManager.findFragmentById(R.id.frameLayoutFragment);
 
+        // on récupère le contenu du frameLayout pour pourvoir identifer le fragment qui s'y trouve
+        Fragment f = fragmentManager.findFragmentById(R.id.frameLayoutFragment);
 
         if (f instanceof StockFragment) {
             pancakeAddFrag = new PancakeAddingFrag();
             transaction.replace(R.id.frameLayoutFragment, pancakeAddFrag, FRAG_PANCAKE);
-            fragStock = null;
         } else {
             transaction.remove(pancakeAddFrag);
             pancakeAddFrag.onDetach();
-            pancakeAddFrag = null;
             restartActivity(this);
         }
         transaction.commit();
 
     }
 
-
+    //DeprecatedA
     private void soonToast() {
         Toast toast = Toast.makeText(context, "Soon Available", Toast.LENGTH_SHORT);
         toast.show();
     }
 
     public void restartActivity(ReplenishmentScreen act){
-
         Intent intent=new Intent();
         intent.setClass(act, act.getClass());
         act.finish();
